@@ -9,7 +9,9 @@
     "test:select": "node index.js ./config.json SelectHeavy",
     "test:insert": "node index.js ./config.json InsertHeavy",
     "test:update": "node index.js ./config.json UpdateHeavy",
-    "test:mixed": "node index.js ./config.json Mixed"
+    "test:mixed": "node index.js ./config.json Mixed",
+    "test:pg": "node index.js --db postgresql",
+    "test:mssql": "node index.js --db sqlserver"
   },
   "keywords": [
     "database",

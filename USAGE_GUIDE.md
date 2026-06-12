@@ -315,6 +315,30 @@ docker rm pg-loadtest mssql-loadtest
 
 ---
 
+## Single Database Testing
+
+You can test only one database without needing to remove anything from `config.json`:
+
+### Test Only PostgreSQL
+```bash
+node index.js --db postgresql
+
+# Or via npm script:
+npm run test:pg
+```
+
+### Test Only SQL Server
+```bash
+node index.js --db sqlserver
+
+# Or via npm script:
+npm run test:mssql
+```
+
+**Note:** The `--db` flag accepts `postgresql` or `sqlserver`. If the database isn't found in your config, you'll get an error with the available options.
+
+---
+
 ## Troubleshooting
 
 ### Connection Errors

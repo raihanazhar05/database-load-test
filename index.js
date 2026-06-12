@@ -20,7 +20,7 @@ const WORKLOADS = {
   CustomSql: CustomSqlWorkload
 };
 
-async function runLoadTest(configPath = './config.json') {
+async function runLoadTest(configPath = './config.json', selectedDb = null) {
   const cli = new CLIDisplay();
   cli.showBanner();
 
@@ -37,8 +37,18 @@ async function runLoadTest(configPath = './config.json') {
       throw new Error(`Unknown workload: ${workloadName}. Available: ${Object.keys(WORKLOADS).join(', ')}`);
     }
 
+    // Filter databases if --db flag is provided
+    const databasesToTest = selectedDb
+      ? Object.entries(config.databases).filter(([dbName]) => dbName === selectedDb)
+      : Object.entries(config.databases);
+
+    if (databasesToTest.length === 0) {
+      cli.showError(`No database configuration found for: ${selectedDb}. Available: ${Object.keys(config.databases).join(', ')}`);
+      process.exit(1);
+    }
+
     // Test each database
-    for (const [dbName, dbConfig] of Object.entries(config.databases)) {
+    for (const [dbName, dbConfig] of databasesToTest) {
       const displayName = dbName === 'postgresql' ? 'PostgreSQL' : 'SQL Server';
       
       cli.startProgress(`Connecting to ${displayName}...`);
@@ -127,6 +137,15 @@ async function runLoadTest(configPath = './config.json') {
 
 // Parse command line arguments
 const args = process.argv.slice(2);
-const configPath = args[0] || './config.json';
+const configPath = (args[0] && !args[0].startsWith('--')) ? args[0] : './config.json';
 
-runLoadTest(configPath);
+// Parse --db flag
+let selectedDb = null;
+for (let i = 0; i < args.length; i++) {
+  if (args[i] === '--db' && args[i + 1]) {
+    selectedDb = args[i + 1].toLowerCase();
+    break;
+  }
+}
+
+runLoadTest(configPath, selectedDb);

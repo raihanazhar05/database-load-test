@@ -6,12 +6,12 @@ class SelectHeavyWorkload extends BaseWorkload {
     const batchSize = 1000;
     const totalRecords = 10000;
     const batches = Math.ceil(totalRecords / batchSize);
+    const dbName = this.db.getName();
     
     for (let i = 0; i < batches; i++) {
       const values = [];
       for (let j = 0; j < batchSize; j++) {
         const idx = i * batchSize + j;
-        const dbName = this.db.getName();
         if (dbName === 'PostgreSQL') {
           values.push(`('User${idx}', 'user${idx}@example.com', 'active', ${(Math.random() * 1000).toFixed(2)}, '{"key": "value${idx}"}')`);
         } else {
