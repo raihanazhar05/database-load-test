@@ -1,0 +1,33 @@
+{
+  "databases": {
+    "postgresql": {
+      "host": "localhost",
+      "port": 5432,
+      "database": "testdb",
+      "user": "postgres",
+      "password": "password",
+      "maxConnections": 100
+    },
+    "sqlserver": {
+      "server": "localhost",
+      "port": 1433,
+      "database": "testdb",
+      "user": "sa",
+      "password": "Password123!",
+      "options": {
+        "trustServerCertificate": true
+      },
+      "pool": {
+        "max": 100
+      }
+    }
+  },
+  "testSettings": {
+    "durationSeconds": 60,
+    "warmupSeconds": 10,
+    "concurrencyLevels": [10, 50, 100, 200],
+    "workload": "SelectHeavy",
+    "outputDirectory": "./reports",
+    "reportFormats": ["html", "json", "csv"]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "database-load-test",
+  "version": "1.0.0",
+  "description": "Database Load Testing Tool - PostgreSQL vs SQL Server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node index.js",
+    "test:select": "node index.js ./config.json SelectHeavy",
+    "test:insert": "node index.js ./config.json InsertHeavy",
+    "test:update": "node index.js ./config.json UpdateHeavy",
+    "test:mixed": "node index.js ./config.json Mixed"
+  },
+  "keywords": [
+    "database",
+    "load-test",
+    "benchmark",
+    "postgresql",
+    "sql-server",
+    "performance"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "boxen": "^5.1.1",
+    "chalk": "^4.1.2",
+    "cli-table3": "^0.6.5",
+    "figlet": "^1.6.0",
+    "mssql": "^11.0.1",
+    "ora": "^5.4.1",
+    "pg": "^8.12.0"
+  }
+}
